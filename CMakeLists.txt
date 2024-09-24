@@ -68,7 +68,7 @@ add_custom_target(
     COMMENT "install pip deps from requirements"
     COMMAND pip install --user -r ${CONFIG_GAP_SDK_HOME}/requirements.txt
     COMMAND pip install --user -r ${CONFIG_GAP_SDK_HOME}/nn_menu/requirements.txt
-    COMMAND pip install --user -r ${CONFIG_GAP_SDK_HOME}/tools//nntool/requirements.txt
+    COMMAND pip install --user -r ${CONFIG_GAP_SDK_HOME}/tools/nntool/requirements.txt
     COMMAND pip install --user -r ${CONFIG_GAP_SDK_HOME}/utils/gapy/requirements.txt
     )
 
