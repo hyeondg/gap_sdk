@@ -49,6 +49,7 @@ RUN git clone https://github.com/GreenWaves-Technologies/gap_sdk
 
 COPY ./libtile.4.3.5.a /gap_sdk/tools/autotiler_v3/Autotiler/LibTile.a
 
+
 RUN cd /gap_sdk; ~/miniconda3/bin/pip install -r requirements.txt -r doc/requirements.txt 
 
 RUN cd /gap_sdk; git remote set-url origin https://github.com/hyeondg/gap_sdk.git
@@ -59,7 +60,15 @@ RUN ~/miniconda3/bin/pip install "numpy<2"
 
 RUN cd /gap_sdk; ~/miniconda3/bin/pip install -r tools/nntool/requirements.txt
 
-RUN /bin/bash  -c "cd gap_sdk; source configs/gapuino_v3.sh; mv /gap_sdk/tools/autotiler_v3/Makefile /gap_sdk/tools/autotiler_v3/Makefile_tmp; make all; mv /gap_sdk/tools/autotiler_v3/Makefile_tmp /gap_sdk/tools/autotiler_v3/Makefile"
+RUN /bin/bash  -c "mv /gap_sdk/tools/autotiler_v3/Makefile /gap_sdk/tools/autotiler_v3/Makefile_tmp;"
+
+COPY ./Autotiler_Makefile /gap_sdk/tools/autotiler_v3/Autotiler/Makefile
+
+RUN sed -i 's/python3/~\/miniconda3\/bin\/python/g' /gap_sdk/tools/nntool/nntool/Makefile
+
+RUN /bin/bash -c "cd gap_sdk; source configs/gapuino_v3.sh; make all;"
+
+RUN mv /gap_sdk/tools/autotiler_v3/Makefile_tmp /gap_sdk/tools/autotiler_v3/Makefile;
 
 RUN curl -fsSL 'https://raw.githubusercontent.com/hyeondg/config/main/.tmux.conf' >$HOME/.tmux.conf
 
